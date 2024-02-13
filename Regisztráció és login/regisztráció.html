@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDwPZjwBcr-Aov0RH_Ibd2rwbHGBB0HlPI",
+            authDomain: "helyi-kozossegi-esemenyek.firebaseapp.com",
+            databaseURL: "https://helyi-kozossegi-esemenyek-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "helyi-kozossegi-esemenyek",
+            storageBucket: "helyi-kozossegi-esemenyek.appspot.com",
+            messagingSenderId: "120678429448",
+            appId: "1:120678429448:web:b765c54d0696be13aa72bd"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+
+        document.getElementById("registration-form").addEventListener("submit", function (event) {
+            event.preventDefault();
+            var email = document.getElementById("email").value;
+            var password = document.getElementById("password").value;
+
+            createUserWithEmailAndPassword(auth, email, password)
+                .then(function (userCredential) {
+                    // Sikeres regisztráció
+                    var user = userCredential.user;
+                    console.log("Regisztráció sikeres:", user,);
+                })
+                .catch(function (error) {
+                    // Hiba történt
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    console.error("Regisztrációs hiba:", errorCode,
+                        errorMessage);
+                });
+        })
+
+    </script>
+
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container">
+        <form id="registration-form">
+            <label for="email">Email</label>
+            <input type="text" id="email" placeholder="Adja meg email címét">
+            <!-- <label for="name">Felhasználónév</label>
+            <input type="text" id="name" placeholder="Adjon meg egy tetszöleges nevet"> -->
+            <label for="password">Jelszó</label>
+            <input type="password" id="pass" placeholder="Adjon meg egy jelszót">
+            <button type="submit" id="reg">Regisztrálás</button>
+        </form>
+
+    </div>
+
+</body>
+
+</html>
